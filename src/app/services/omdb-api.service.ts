@@ -1,9 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import{ Observable} from 'rxjs';
+import { catchError,tap} from 'rxjs/operators'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class OmdbApiService {
+private _siteURL="http://www.omdbapi.com/";
+private _key='?apikey=8faecb8b&t=";';
+  constructor(private _http:HttpClient) { }
 
-  constructor() { }
+  getMovieData(movieName): Observable<IOMDBResponse>{
+    return this._http.get<IOMDBResponse>(this._siteURL + this._key + movieName) 
+    .pipe(
+      tap(data => console.log('moviedata/error' + JSON.stringify(data))
+      ),
+      catchError(this.handleError)
+    );
+      {
+
+    }
+}
+
+
 }
