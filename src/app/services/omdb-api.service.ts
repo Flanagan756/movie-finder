@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import{ Observable} from 'rxjs';
-import { catchError,tap} from 'rxjs/operators'; 
+import {catchError,tap} from 'rxjs/operators'; 
 
 
 @Injectable({
@@ -15,13 +15,14 @@ private _key='?apikey=8faecb8b&t=";';
   getMovieData(movieName): Observable<IOMDBResponse>{
     return this._http.get<IOMDBResponse>(this._siteURL + this._key + movieName) 
     .pipe(
-      tap(data => console.log('moviedata/error' + JSON.stringify(data))
+      tap(data => console.log('Moviedata/error' + JSON.stringify(data))
       ),
       catchError(this.handleError)
-    );
-      {
-
-    }
+    );  
+}
+private handleError(err:HttpErrorResponse){
+  console.log('OmdbApiService: ' + err.message);
+  return Observable.throw(err.message);
 }
 
 
