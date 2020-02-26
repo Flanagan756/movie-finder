@@ -3,5 +3,6 @@ interface IOMDBResponse {
     Year:string;
     Director:string;
     Poster:string;
+    Genre:string;
     
 }
